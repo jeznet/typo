@@ -40,12 +40,28 @@ class ApplicationController < ActionController::Base
   end
 
   def load_lang
-    Localization.lang = this_blog.lang
+    # FIXME Provide a caching compatible and SEO frendly way of mulitlanguality. Options for setting the Locale: from the Domain Name (or Subdomain) (example.pl, pl.example.com), setting from an URL path (example.com/en/).
+    # TODO (maybe) Add Accept-Language HTTP header support
+    # TODO (maybe) Add user profile setting support
+    if fetch_langs.include?(params[:locale])
+      # Take the setting from an URL param (example.com?locale=en_US)
+      # NOTICE This won't work with cacheing
+      lang = params[:locale]
+      add_to_cookies(:locale, params[:locale], "/")
+    elsif fetch_langs.include?(cookies[:locale])
+      # NOTICE This won't work with cacheing
+      # take the seeting from a cookie
+      lang = cookies[:locale]
+    else
+      # take the default blog language
+      lang = this_blog.lang
+    end
+    Localization.lang = lang
     # Check if for example "en_UK" locale exesists if not check for "en" locale
-    if I18n.available_locales.include?(this_blog.lang.to_sym)
-      I18n.locale = this_blog.lang
-    elsif I18n.available_locales.include?(this_blog.lang[0..1].to_sym)
-      I18n.locale = this_blog.lang[0..1]
+    if I18n.available_locales.include?(lang.to_sym)
+      I18n.locale = lang
+    elsif I18n.available_locales.include?(lang[0..1].to_sym)
+      I18n.locale = lang[0..1]
     end
     # _("Localization.rtl") 
   end
@@ -73,6 +89,21 @@ class ApplicationController < ActionController::Base
   def add_to_cookies(name, value, path=nil, expires=nil)
     cookies[name] = { :value => value, :path => path || "/#{controller_name}",
                        :expires => 6.weeks.from_now }
+  end
+
+  private
+
+  # TODO Move this to a lib
+  # TODO Use this in app/hellpers/admin/settings_helper.rb
+  def fetch_langs
+    require 'find'
+    langs = []
+    Find.find(File.join(RAILS_ROOT, "lang")) do |lang|
+      if lang =~ /\.rb$/
+        langs << File.basename(lang).gsub(".rb", '')
+      end
+    end
+    langs
   end
 end
 

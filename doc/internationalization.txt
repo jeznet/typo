@@ -1,0 +1,20 @@
+1.
+
+Put in your config/locales directory the locales from
+http://github.com/svenfuchs/rails-i18n/tree/master/rails/locale/ that You need.
+
+2.
+
+When you want to allow the user to switch the blog lang add something like this
+in your blog layout (usually in your themes default.html.erb file):
+
+<div id="lang">
+  <%= link_to "pl", { :url => "#", :locale => 'pl_PL' } %> |
+  <%= link_to "en", { :url => "#", :locale => 'en_US' } %> |
+  <%= link_to "de", { :url => "#", :locale => 'de_DE' } %>
+</div>
+
+This feature is experimental and may change in the future.
+See app/controllers/application_controller.rb#load_lang for how it works.
+
+Author: Szymon Jeż <szymon@jez.net.pl> (http://github.com/jeznet)
