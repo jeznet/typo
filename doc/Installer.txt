@@ -21,6 +21,7 @@ You'll need the following software installed on your system:
 2.  RubyGems (http://www.rubygems.org)
 3.  SWIG (http://www.swig.org)
 4.  MySQL, PostgreSQL or SQLite 3
+5.  (optionally) ImageMagic
 
 Most modern Unix systems should have all four of these easily available in
 pre-built form.

@@ -22,6 +22,7 @@ Currently you need all of those things to get typo to run:
    We recommend the use of Apache + mod_rails (aka Passenger) for fast and 
    easy deployment along with speed.
  * rspec, rcov and ruby-debug are necessary to run the test suit.
+ * ImageMagic is necessary to allow image manipulation (thubnails generation etc.)
 
 Installation
 ============
