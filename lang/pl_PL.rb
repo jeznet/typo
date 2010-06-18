@@ -1,5 +1,5 @@
 # localization Marcin Gil <marcin.gil@gmail.com>
-# additional localization Szymon (jeznet) Jeż <szymon@jez.net.pl>
+# additional localization Szymon Jeż <szymon@jez.net.pl> (http://github.com/jeznet)
 
 Localization.define('pl_PL') do |l|
   # General
@@ -555,8 +555,17 @@ Localization.define('pl_PL') do |l|
 
   l.store "Pictures from", "Zdjęcia z"
 
+  # app/controllers/articles_controller.rb
+  l.store "No posts found...", "Nie znaleziono rzadnych wpisów..."
+  l.store "Archives for", "Archiwum dla"
+  l.store ", Articles for ", ", artykuły dla "
+
+  #views/articles/live_search.rhtml
+  l.store 'Searched for', 'Szukano'
+
   #views/shared/_search.rhtml
-  l.store 'Live Search', 'Wyszukiwarka'
+  l.store 'Live Search', 'Szukaj'
+  l.store 'Search', 'Szukaj'
 
   #vendor/plugins/aimpresence_sidebar/aimpresence_sidebar.rb
   l.store "AIM Presence", "Status AIM"
@@ -666,7 +675,7 @@ Localization.define('pl_PL') do |l|
   l.store 'over', 'ponad'
   l.store 'ago', 'temu'
 
-  # TODO: How to make this work? Why is it not working.
+  # TODO: How to make this work? Why is it not working?
   # All Javascript strings go here, with the js_ prefix (only needed in this file)
   l.store 'js_hour', 'godzina'
   l.store 'js_minute', 'minuta'
