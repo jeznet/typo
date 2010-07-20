@@ -61,7 +61,7 @@ class Article < Content
   has_many :triggers, :as => :pending_item
   after_save :post_trigger
 
-  attr_accessor :draft
+  attr_accessor :draft, :keywords
 
   has_state(:state,
             :valid_states  => [:new, :draft,
@@ -493,7 +493,9 @@ class Article < Content
       rss_desc = ""
     end
 
-    post = blog.show_extended_on_rss ? post = html(:all) : post = html(:body)
+    post = blog.show_extended_on_rss ? post = html(:all) : post = html(:body) 
+    post = "<p>This article is password protected. Please <a href='#{permalink_url}'>fill in your password</a> to read it</p>" unless password.nil?
+    
     content = blog.rss_description ? post + rss_desc : post
     entry.content(content, :type => "html")
   end
